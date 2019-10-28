@@ -27,9 +27,10 @@ interaction.
 1. Make sure you have git installed. Go to [https://git-scm.com/](https://git-scm.com/) to install it.
 2. Open the terminal.
 3. Type in "git clone https://github.com/dotslash21/realtime_face_identification.git" to clone this repository.
-4. Open the project in Android Studio (preferably version 3.x).
-5. Perform a Gradle sync (click on 'Sync now' in the popup).
-6. Build and Run the project.
+4. [Add Firebase to your Android Project](https://firebase.google.com/docs/android/setup).
+5. Open the project in Android Studio (preferably version 3.x).
+6. Perform a Gradle sync (click on 'Sync now' in the popup).
+7. Build and Run the project.
 
 ## License
 
