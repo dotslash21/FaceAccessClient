@@ -13,28 +13,28 @@
         tools:layout_editor_absoluteX="107dp"
         tools:layout_editor_absoluteY="228dp">
 
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Welcome to FaceAccess Terminal"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:background="#c0c0c0" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:srcCompat="@mipmap/ic_launcher" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:gravity="center|bottom"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/auth_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center"
-                android:background="@color/colorPrimary"
-                android:text="AUTHENTICATE"
-                android:textColor="@color/white" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/instruction0"
@@ -62,22 +62,22 @@
             android:text="Click on the 'AUTHENTICATE' button to start."
             android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/welcomeText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Welcome to FaceAccess Terminal"
-            android:textAlignment="center"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center|bottom"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="5dp"
-            android:layout_marginVertical="10dp"
-            android:background="#c0c0c0" />
+            <Button
+                android:id="@+id/auth_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:background="@color/colorPrimary"
+                android:text="AUTHENTICATE"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
