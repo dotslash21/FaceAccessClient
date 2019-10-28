@@ -81,35 +81,44 @@ public class FaceGraphic extends Graphic {
         // of the face's bounding box
         float x = translateX(face.getBoundingBox().centerX());
         float y = translateY(face.getBoundingBox().centerY());
-        canvas.drawCircle(x, y - 4 * ID_Y_OFFSET, FACE_POSITION_RADIUS, facePositionPaint);
-        canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y - 3 * ID_Y_OFFSET, idPaint);
-        canvas.drawText(
-                "happiness: " + String.format("%.2f", face.getSmilingProbability()),
-                x + ID_X_OFFSET * 3,
-                y - 2 * ID_Y_OFFSET,
-                idPaint);
-        if (facing == CameraSource.CAMERA_FACING_FRONT) {
+
+        if (face.getTrackingId() != -1) {
+            canvas.drawCircle(x, y - 4 * ID_Y_OFFSET, FACE_POSITION_RADIUS, facePositionPaint);
+            canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y - 3 * ID_Y_OFFSET, idPaint);
+        }
+
+        if (face.getSmilingProbability() != -1) {
             canvas.drawText(
-                    "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
-                    x - ID_X_OFFSET,
-                    y,
+                    "happiness: " + String.format("%.2f", face.getSmilingProbability()),
+                    x + ID_X_OFFSET * 3,
+                    y - 2 * ID_Y_OFFSET,
                     idPaint);
-            canvas.drawText(
-                    "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
-                    x + ID_X_OFFSET * 6,
-                    y,
-                    idPaint);
-        } else {
-            canvas.drawText(
-                    "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
-                    x - ID_X_OFFSET,
-                    y,
-                    idPaint);
-            canvas.drawText(
-                    "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
-                    x + ID_X_OFFSET * 6,
-                    y,
-                    idPaint);
+        }
+
+        if (face.getRightEyeOpenProbability() != -1 && face.getLeftEyeOpenProbability() != -1) {
+            if (facing == CameraSource.CAMERA_FACING_FRONT) {
+                canvas.drawText(
+                        "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
+                        x - ID_X_OFFSET,
+                        y,
+                        idPaint);
+                canvas.drawText(
+                        "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
+                        x + ID_X_OFFSET * 6,
+                        y,
+                        idPaint);
+            } else {
+                canvas.drawText(
+                        "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
+                        x - ID_X_OFFSET,
+                        y,
+                        idPaint);
+                canvas.drawText(
+                        "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
+                        x + ID_X_OFFSET * 6,
+                        y,
+                        idPaint);
+            }
         }
 
         // Draws a bounding box around the face.
