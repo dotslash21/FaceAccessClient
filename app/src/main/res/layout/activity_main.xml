@@ -76,7 +76,8 @@
                 android:layout_gravity="center_horizontal|center"
                 android:background="@color/colorPrimary"
                 android:text="AUTHENTICATE"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:onClick="onAuthClick" />
         </LinearLayout>
 
     </LinearLayout>

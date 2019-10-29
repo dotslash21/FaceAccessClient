@@ -50,15 +50,21 @@ public class FaceDetectionProcessor extends VisionProcessorBase<List<FirebaseVis
     private final Bitmap overlayBitmap;
 
     public FaceDetectionProcessor(Resources resources) {
+//        FirebaseVisionFaceDetectorOptions options =
+//                new FirebaseVisionFaceDetectorOptions.Builder()
+//                        .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+//                        .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
+//                        .build();
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()
-                        .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
-                        .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
+                        .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
+                        .setMinFaceSize(0.8f)
                         .build();
 
         detector = FirebaseVision.getInstance().getVisionFaceDetector(options);
 
-        overlayBitmap = BitmapFactory.decodeResource(resources, R.drawable.clown_nose);
+//        overlayBitmap = BitmapFactory.decodeResource(resources, R.drawable.clown_nose);
+        overlayBitmap = null;
     }
 
     @Override

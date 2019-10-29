@@ -38,23 +38,18 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
 
-        // Authenticate button listener
-        final Button authButton = (Button) findViewById(R.id.auth_button);
-        authButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Starting authentication.",
-                        Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(MainActivity.this, AuthActivity.class);
-                startActivity(intent);
-            }
-        });
-
         // Get the required permissions
         if (!allPermissionsGranted()) {
             getRuntimePermissions();
         }
+    }
+
+    public void onAuthClick(View v) {
+        Toast.makeText(MainActivity.this, "Starting authentication.",
+                Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getBaseContext(), AuthActivity.class);
+        startActivity(intent);
     }
 
     private String[] getRequiredPermissions() {
