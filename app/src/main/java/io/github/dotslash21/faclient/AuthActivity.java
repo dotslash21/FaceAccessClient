@@ -50,6 +50,7 @@ public class AuthActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_auth);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         preview = findViewById(R.id.firePreview);
         if (preview == null) {
