@@ -95,7 +95,7 @@ public class AuthActivity extends AppCompatActivity
         // If there's no existing cameraSource, create one.
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
-            cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT)
+            cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
         }
 
         try {
