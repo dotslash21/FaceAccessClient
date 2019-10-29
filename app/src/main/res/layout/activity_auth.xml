@@ -17,12 +17,6 @@
         android:layout_toEndOf="@id/firePreview"
         android:background="#000">
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
         <ToggleButton
             android:id="@+id/facingSwitch"
             android:layout_width="48dp"
@@ -34,15 +28,6 @@
             android:textOn="" />
 
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="80dp"
-        android:textColor="#FFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
     <io.github.dotslash21.faclient.utils.CameraSourcePreview
         android:id="@+id/firePreview"

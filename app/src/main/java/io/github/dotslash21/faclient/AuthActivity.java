@@ -23,7 +23,7 @@ import java.util.List;
 import io.github.dotslash21.faclient.utils.CameraSource;
 import io.github.dotslash21.faclient.utils.CameraSourcePreview;
 import io.github.dotslash21.faclient.utils.GraphicOverlay;
-import io.github.dotslash21.faclient.utils.facedetection.FaceDetectionProcessor;
+import io.github.dotslash21.faclient.utils.facedetection.FaceContourDetectorProcessor;
 
 
 public class AuthActivity extends AppCompatActivity
@@ -50,6 +50,7 @@ public class AuthActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_auth);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         preview = findViewById(R.id.firePreview);
         if (preview == null) {
@@ -69,7 +70,7 @@ public class AuthActivity extends AppCompatActivity
 
         // Get Required Permissions
         if (allPermissionsGranted()) {
-            createCameraSource("Face Detection");
+            createCameraSource("Face Contour");
         } else {
             getRuntimePermissions();
         }
@@ -80,9 +81,9 @@ public class AuthActivity extends AppCompatActivity
         Log.d(TAG, "Set facing");
         if (cameraSource != null) {
             if (isChecked) {
-                cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
-            } else {
                 cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
+            } else {
+                cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
             }
         }
         preview.stop();
@@ -93,13 +94,14 @@ public class AuthActivity extends AppCompatActivity
         // If there's no existing cameraSource, create one.
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
+            cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT)
         }
 
         try {
             Log.i(TAG, "Using Face Detector Processor");
-            cameraSource.setMachineLearningFrameProcessor(new FaceDetectionProcessor(getResources()));
+            cameraSource.setMachineLearningFrameProcessor(new FaceContourDetectorProcessor());
         } catch (Exception e) {
-            Log.e(TAG, "Can not create image processor: Face Detection", e);
+            Log.e(TAG, "Can not create image processor: Face Contour", e);
             Toast.makeText(
                     getApplicationContext(),
                     "Can not create image processor: " + e.getMessage(),
@@ -199,7 +201,7 @@ public class AuthActivity extends AppCompatActivity
             int requestCode, String[] permissions, @NonNull int[] grantResults) {
         Log.i(TAG, "Permission granted!");
         if (allPermissionsGranted()) {
-            createCameraSource("Face Detection");
+            createCameraSource("Face Contour");
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
