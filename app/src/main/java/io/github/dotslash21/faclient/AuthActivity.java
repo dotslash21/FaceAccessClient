@@ -81,9 +81,9 @@ public class AuthActivity extends AppCompatActivity
         Log.d(TAG, "Set facing");
         if (cameraSource != null) {
             if (isChecked) {
-                cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
-            } else {
                 cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
+            } else {
+                cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
             }
         }
         preview.stop();
@@ -94,6 +94,7 @@ public class AuthActivity extends AppCompatActivity
         // If there's no existing cameraSource, create one.
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
+            cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT)
         }
 
         try {
