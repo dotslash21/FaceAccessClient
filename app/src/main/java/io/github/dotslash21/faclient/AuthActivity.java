@@ -23,7 +23,7 @@ import java.util.List;
 import io.github.dotslash21.faclient.utils.CameraSource;
 import io.github.dotslash21.faclient.utils.CameraSourcePreview;
 import io.github.dotslash21.faclient.utils.GraphicOverlay;
-import io.github.dotslash21.faclient.utils.facedetection.FaceContourDetectorProcessor;
+import io.github.dotslash21.faclient.utils.FaceIdentificationProcessor;
 
 
 public class AuthActivity extends AppCompatActivity
@@ -69,7 +69,7 @@ public class AuthActivity extends AppCompatActivity
 
         // Get Required Permissions
         if (allPermissionsGranted()) {
-            createCameraSource("Face Contour");
+            createCameraSource("Face Identification");
         } else {
             getRuntimePermissions();
         }
@@ -96,10 +96,10 @@ public class AuthActivity extends AppCompatActivity
         }
 
         try {
-            Log.i(TAG, "Using Face Detector Processor");
-            cameraSource.setMachineLearningFrameProcessor(new FaceContourDetectorProcessor());
+            Log.i(TAG, "Using Face Identification Processor");
+            cameraSource.setMachineLearningFrameProcessor(new FaceIdentificationProcessor());
         } catch (Exception e) {
-            Log.e(TAG, "Can not create image processor: Face Contour", e);
+            Log.e(TAG, "Can not create image processor: Face Identification", e);
             Toast.makeText(
                     getApplicationContext(),
                     "Can not create image processor: " + e.getMessage(),
@@ -199,7 +199,7 @@ public class AuthActivity extends AppCompatActivity
             int requestCode, String[] permissions, @NonNull int[] grantResults) {
         Log.i(TAG, "Permission granted!");
         if (allPermissionsGranted()) {
-            createCameraSource("Face Contour");
+            createCameraSource("Face Identification");
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }

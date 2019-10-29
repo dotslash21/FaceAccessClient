@@ -1,4 +1,4 @@
-package io.github.dotslash21.faclient.utils.facedetection;
+package io.github.dotslash21.faclient.utils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,11 +11,7 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
 import io.github.dotslash21.faclient.utils.GraphicOverlay;
 import io.github.dotslash21.faclient.utils.GraphicOverlay.Graphic;
 
-/**
- * Graphic instance for rendering face contours graphic overlay view.
- */
-public class FaceContourGraphic extends Graphic {
-
+public class FaceIdentificationGraphic extends Graphic {
     private static final float FACE_POSITION_RADIUS = 4.0f;
     private static final float ID_TEXT_SIZE = 30.0f;
     private static final float ID_Y_OFFSET = 80.0f;
@@ -28,7 +24,7 @@ public class FaceContourGraphic extends Graphic {
 
     private volatile FirebaseVisionFace firebaseVisionFace;
 
-    public FaceContourGraphic(GraphicOverlay overlay, FirebaseVisionFace face) {
+    public FaceIdentificationGraphic(GraphicOverlay overlay, FirebaseVisionFace face) {
         super(overlay);
 
         this.firebaseVisionFace = face;
