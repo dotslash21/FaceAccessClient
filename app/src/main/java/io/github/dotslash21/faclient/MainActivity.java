@@ -22,6 +22,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -105,5 +107,18 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(
                     this, allNeededPermissions.toArray(new String[0]), PERMISSION_REQUESTS);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id=item.getItemId();
+        return true;
     }
 }
