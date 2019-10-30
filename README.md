@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/dotslash21/FaceAccessClient/tree/master.svg?style=shield)](https://circleci.com/gh/dotslash21/FaceAccessClient/tree/master)
+
 # FaceAccess Client - Face Recognition based Access Management System Client App
 
 As the name suggests this is a client side app to interface with the FaceAccess Server for face-recognition 
