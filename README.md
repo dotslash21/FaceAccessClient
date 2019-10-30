@@ -1,4 +1,8 @@
 [![CircleCI](https://circleci.com/gh/dotslash21/FaceAccessClient/tree/master.svg?style=shield)](https://circleci.com/gh/dotslash21/FaceAccessClient/tree/master)
+[![GitHub issues](https://img.shields.io/github/issues/dotslash21/FaceAccessClient)](https://github.com/dotslash21/FaceAccessClient/issues)
+[![GitHub forks](https://img.shields.io/github/forks/dotslash21/FaceAccessClient)](https://github.com/dotslash21/FaceAccessClient/network)
+[![GitHub stars](https://img.shields.io/github/stars/dotslash21/FaceAccessClient)](https://github.com/dotslash21/FaceAccessClient/stargazers)
+[![GitHub license](https://img.shields.io/github/license/dotslash21/FaceAccessClient)](https://github.com/dotslash21/FaceAccessClient)
 
 # FaceAccess Client - Face Recognition based Access Management System Client App
 
