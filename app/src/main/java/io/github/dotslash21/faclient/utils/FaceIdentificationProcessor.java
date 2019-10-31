@@ -13,6 +13,7 @@
 // limitations under the License.
 package io.github.dotslash21.faclient.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -37,10 +38,17 @@ import io.github.dotslash21.faclient.utils.FaceIdentificationGraphic;
 
 public class FaceIdentificationProcessor extends VisionProcessorBase<List<FirebaseVisionFace>> {
     private static final String TAG = "FaceIdentificationProc";
+    private Context mContext;
+    private BackendConnectionManager backendConnectionManager;
+    private boolean frameCollectionDone = false;
 
     private final FirebaseVisionFaceDetector detector;
 
-    public FaceIdentificationProcessor() {
+    public FaceIdentificationProcessor(Context context, BackendConnectionManager backendConnectionManager) {
+        this.mContext = context.getApplicationContext();
+
+        this.backendConnectionManager = backendConnectionManager;
+
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()
                         .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
@@ -76,11 +84,32 @@ public class FaceIdentificationProcessor extends VisionProcessorBase<List<Fireba
             CameraImageGraphic imageGraphic = new CameraImageGraphic(graphicOverlay, originalCameraImage);
             graphicOverlay.add(imageGraphic);
         }
-        for (int i = 0; i < faces.size(); ++i) {
-            FirebaseVisionFace face = faces.get(i);
+
+        if (faces.size() < 1) {
+//            Toast.makeText(this.mContext, "No faces detected!", Toast.LENGTH_SHORT).show();
+        } else if (faces.size() > 1) {
+//            Toast.makeText(this.mContext, "Multiple faces detected!", Toast.LENGTH_SHORT).show();
+
+            for (int i = 0; i < faces.size(); ++i) {
+                FirebaseVisionFace face = faces.get(i);
+                FaceIdentificationGraphic faceGraphic = new FaceIdentificationGraphic(graphicOverlay, face);
+                graphicOverlay.add(faceGraphic);
+            }
+        } else {
+            FirebaseVisionFace face = faces.get(0);
             FaceIdentificationGraphic faceGraphic = new FaceIdentificationGraphic(graphicOverlay, face);
             graphicOverlay.add(faceGraphic);
+
+            if (!frameCollectionDone) {
+                int result = backendConnectionManager.pushFrame(originalCameraImage);
+
+                if (result == 1) {
+                    frameCollectionDone = true;
+                    backendConnectionManager.authenticateFace(this.mContext);
+                }
+            }
         }
+
         graphicOverlay.postInvalidate();
     }
 

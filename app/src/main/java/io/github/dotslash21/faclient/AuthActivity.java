@@ -17,6 +17,7 @@
 package io.github.dotslash21.faclient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -37,6 +38,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.dotslash21.faclient.utils.BackendConnectionManager;
 import io.github.dotslash21.faclient.utils.CameraSource;
 import io.github.dotslash21.faclient.utils.CameraSourcePreview;
 import io.github.dotslash21.faclient.utils.GraphicOverlay;
@@ -52,6 +54,8 @@ public class AuthActivity extends AppCompatActivity
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
 
+    private BackendConnectionManager backendConnectionManager;
+
     private static boolean isPermissionGranted(Context context, String permission) {
         if (ContextCompat.checkSelfPermission(context, permission)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -64,6 +68,7 @@ public class AuthActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_auth);
@@ -84,6 +89,15 @@ public class AuthActivity extends AppCompatActivity
         if (Camera.getNumberOfCameras() == 1) {
             facingSwitch.setVisibility(View.GONE);
         }
+
+        // Create backendConnectionManager instance with required info
+        Intent intent = getIntent();
+//        String backendHostName = intent.getStringExtra("BACKEND_HOST_NAME");
+//        String backendPort = intent.getStringExtra("BACKEND_PORT");
+        //TEMPORARY TEST CODE
+        String backendHostName = "localhost";
+        String backendPort = "8080";
+        backendConnectionManager = new BackendConnectionManager(this, backendHostName, backendPort);
 
         // Get Required Permissions
         if (allPermissionsGranted()) {
@@ -116,7 +130,7 @@ public class AuthActivity extends AppCompatActivity
 
         try {
             Log.i(TAG, "Using Face Identification Processor");
-            cameraSource.setMachineLearningFrameProcessor(new FaceIdentificationProcessor());
+            cameraSource.setMachineLearningFrameProcessor(new FaceIdentificationProcessor(this, backendConnectionManager));
         } catch (Exception e) {
             Log.e(TAG, "Can not create image processor: Face Identification", e);
             Toast.makeText(
