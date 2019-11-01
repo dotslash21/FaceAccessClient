@@ -45,7 +45,7 @@ public class FaceIdentificationProcessor extends VisionProcessorBase<List<Fireba
     private final FirebaseVisionFaceDetector detector;
 
     public FaceIdentificationProcessor(Context context, BackendConnectionManager backendConnectionManager) {
-        this.mContext = context.getApplicationContext();
+        this.mContext = context;
 
         this.backendConnectionManager = backendConnectionManager;
 
@@ -101,7 +101,19 @@ public class FaceIdentificationProcessor extends VisionProcessorBase<List<Fireba
             graphicOverlay.add(faceGraphic);
 
             if (!frameCollectionDone) {
-                int result = backendConnectionManager.pushFrame(originalCameraImage);
+                // Cuts out the bounding box around the face.
+                int width = face.getBoundingBox().width();
+                int height = face.getBoundingBox().height();
+                int centerX = face.getBoundingBox().centerX();
+                int centerY = face.getBoundingBox().centerY();
+                int x = centerX - (width / 2);
+                int y = centerY - (height / 2);
+
+                Log.d(TAG, "CUTOUT: "+x+" "+y+" "+width+" "+height);
+
+                Bitmap frame = Bitmap.createBitmap(originalCameraImage, x, y, width, height);
+
+                int result = backendConnectionManager.pushFrame(frame);
 
                 if (result == 1) {
                     frameCollectionDone = true;

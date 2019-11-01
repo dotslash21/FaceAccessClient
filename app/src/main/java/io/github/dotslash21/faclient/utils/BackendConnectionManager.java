@@ -49,21 +49,19 @@ import java.nio.charset.StandardCharsets;
 import io.github.dotslash21.faclient.AuthStatusActivity;
 
 public class BackendConnectionManager {
-    private Context mContext;
     private static final String TAG = "BackendConnManager";
     private RequestQueue queue;
     private String backendUrlPath;
 
     private String authToken;
 
-    private static final int FRAME_LIMIT = 100;
+    private static final int FRAME_LIMIT = 5;
     private Bitmap frameArray[];
     private JSONArray jsonImageArray;
     private int frameCount;
     private JSONObject jsonObject;
 
-    public BackendConnectionManager(Context context, String backendHostName, String backendPort) {
-        this.mContext = context.getApplicationContext();
+    public BackendConnectionManager(String backendHostName, String backendPort) {
         this.backendUrlPath = "http://" + backendHostName + ":" + backendPort + "/";
 
         this.authToken = null;
@@ -88,9 +86,9 @@ public class BackendConnectionManager {
 
     }
 
-    public void authenticateClientWithBackend(String clientId, String serialNumber) {
+    public void authenticateClientWithBackend(Context context, String clientId, String serialNumber) {
         try {
-            URL url = new URL(backendUrlPath + "register-client");
+            URL url = new URL(this.backendUrlPath + "register-client");
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -124,12 +122,12 @@ public class BackendConnectionManager {
                 this.authToken = response.getString("token");
             } else {
                 Log.e(TAG, "Error authenticating with backend: statusCode " + statusCode);
-                Toast.makeText(mContext, "Client registration on backend failed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Client registration on backend failed!", Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {
             Log.e(TAG, "Error authenticating with backend: " + e);
-            Toast.makeText(mContext, "Client registration on backend failed!", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Client registration on backend failed!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -153,7 +151,7 @@ public class BackendConnectionManager {
     }
 
     public void authenticateFace(Context context) {
-        queue = Volley.newRequestQueue(this.mContext);
+        queue = Volley.newRequestQueue(context);
 
         try {
             jsonObject.put("imageList", this.jsonImageArray);
@@ -162,7 +160,7 @@ public class BackendConnectionManager {
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST, backendUrlPath + "face-auth", jsonObject,
+                Request.Method.POST, this.backendUrlPath + "face-auth", jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -174,6 +172,7 @@ public class BackendConnectionManager {
 
 
                             if (probability >= 0.80) {
+                                Log.d(TAG, "AUTH STATUS PASS 1");
                                 Intent intent = new Intent(context, AuthStatusActivity.class);
                                 intent.putExtra("AUTH_STATUS", "PASS");
                                 intent.putExtra("ID", id);
@@ -197,31 +196,12 @@ public class BackendConnectionManager {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Handle error
-//                        Intent intent = new Intent(context, AuthStatusActivity.class);
-//                        intent.putExtra("AUTH_STATUS", "FAIL");
-//                        context.startActivity(intent);
-
-                        // TEMPORARY TESTING CODE
-                        String id = "Arunangshu_Biswas";
-                        String name = "Arunangshu Biswas";
-                        double probability = 0.81;
-
-                        if (probability >= 0.80) {
-                            Log.d(TAG, "AUTH STATUS PASS 1");
-                            Intent intent = new Intent(context, AuthStatusActivity.class);
-                            intent.putExtra("AUTH_STATUS", "PASS");
-                            intent.putExtra("ID", id);
-                            intent.putExtra("NAME", name);
-                            intent.putExtra("PROBABILITY", probability);
-                            context.startActivity(intent);
-                            ((Activity) context).finish();
-                        } else {
-                            Log.d(TAG, "AUTH STATUS FAIL 2");
-                            Intent intent = new Intent(context, AuthStatusActivity.class);
-                            intent.putExtra("AUTH_STATUS", "FAIL");
-                            context.startActivity(intent);
-                            ((Activity) context).finish();
-                        }
+                        Log.d(TAG, "AUTH STATUS FAIL 2");
+                        Log.e(TAG, "onErrorResponse: " + error.getLocalizedMessage());
+                        Intent intent = new Intent(context, AuthStatusActivity.class);
+                        intent.putExtra("AUTH_STATUS", "FAIL");
+                        context.startActivity(intent);
+                        ((Activity) context).finish();
                     }
                 }
         );
