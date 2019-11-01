@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General">
+        <EditTextPreference
+            android:defaultValue="@string/host"
+            android:key="@string/key_host_name"
+            android:summary="@string/host_summary"
+            android:title="@string/title_host" />
+        <EditTextPreference
+            android:defaultValue="@string/port"
+            android:key="@string/key_port_name"
+            android:summary="@string/port_summary"
+            android:title="@string/title_port" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
