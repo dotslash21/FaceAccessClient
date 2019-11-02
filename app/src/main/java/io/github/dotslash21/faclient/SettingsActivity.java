@@ -6,7 +6,9 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.view.MenuItem;;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;;
 
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
@@ -15,6 +17,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate( savedInstanceState );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -27,8 +30,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_main);
 
-            // EditText change listener
+            // EditText change listeners
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_host_name)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_port_name)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_frame_name)));
         }
     }
 
@@ -57,15 +62,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             String stringValue = newValue.toString();
+
             if (preference instanceof EditTextPreference) {
-                if (preference.getKey().equals("key_host_name")) {
-                    // update the changed gallery name to summary filed
-                    preference.setSummary(stringValue);
-                }
-                else if(preference.getKey().equals("key_port_name")){
-                    preference.setSummary(stringValue);
-                }
+                preference.setSummary(stringValue);
             }
+
             return true;
         }
     };

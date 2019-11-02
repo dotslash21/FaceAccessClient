@@ -74,9 +74,12 @@ public class MainActivity extends AppCompatActivity {
         String hostname = sharedPreferences.getString("key_host_name", "");
         String port = sharedPreferences.getString("key_port_name", "8080");
 
+        String numFrameSamples = sharedPreferences.getString("key_frame_name", "5");
+
         Intent intent = new Intent(getBaseContext(), AuthActivity.class);
         intent.putExtra("BACKEND_HOST_NAME", hostname);
         intent.putExtra("BACKEND_PORT", port);
+        intent.putExtra("NUM_FRAME_SAMPLES", Integer.parseInt(numFrameSamples));
         startActivity(intent);
     }
 

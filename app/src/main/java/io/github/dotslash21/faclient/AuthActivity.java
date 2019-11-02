@@ -95,7 +95,8 @@ public class AuthActivity extends AppCompatActivity
         Intent intent = getIntent();
         String backendHostName = intent.getStringExtra("BACKEND_HOST_NAME");
         String backendPort = intent.getStringExtra("BACKEND_PORT");
-        backendConnectionManager = new BackendConnectionManager(backendHostName, backendPort);
+        int numFrameSamples = intent.getIntExtra("NUM_FRAME_SAMPLES", 5);
+        backendConnectionManager = new BackendConnectionManager(backendHostName, backendPort, numFrameSamples);
 
         // Get Required Permissions
         if (allPermissionsGranted()) {

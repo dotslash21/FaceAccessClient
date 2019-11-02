@@ -55,18 +55,19 @@ public class BackendConnectionManager {
 
     private String authToken;
 
-    private static final int FRAME_LIMIT = 5;
+    private int numFrameSamples;
     private Bitmap frameArray[];
     private JSONArray jsonImageArray;
     private int frameCount;
     private JSONObject jsonObject;
 
-    public BackendConnectionManager(String backendHostName, String backendPort) {
+    public BackendConnectionManager(String backendHostName, String backendPort, int numFrameSamples) {
         this.backendUrlPath = "http://" + backendHostName + ":" + backendPort + "/";
+        this.numFrameSamples = numFrameSamples;
 
         this.authToken = null;
 
-        this.frameArray = new Bitmap[FRAME_LIMIT];
+        this.frameArray = new Bitmap[this.numFrameSamples];
         this.jsonImageArray = new JSONArray();
         this.frameCount = 0;
         jsonObject = new JSONObject();
@@ -133,7 +134,7 @@ public class BackendConnectionManager {
 
     public int pushFrame(Bitmap frame) {
         try {
-            if (frameCount == FRAME_LIMIT) {
+            if (frameCount == this.numFrameSamples) {
                 return 1;
             }
 
