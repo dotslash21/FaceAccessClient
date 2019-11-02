@@ -8,9 +8,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;;
 
-import android.os.Bundle;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
 
@@ -28,20 +27,8 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_main);
 
-            // gallery EditText change listener
+            // EditText change listener
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_host_name)));
-
-            // notification preference change listener
-//            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_notifications_new_message_ringtone)));
-//
-//            // feedback preference click listener
-//            Preference myPref = findPreference(getString(R.string.key_send_feedback));
-//            myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//                public boolean onPreferenceClick(Preference preference) {
-//                    sendFeedback(getActivity());
-//                    return true;
-//                }
-//            });
         }
     }
 

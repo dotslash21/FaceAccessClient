@@ -18,14 +18,15 @@ package io.github.dotslash21.faclient;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int PERMISSION_REQUESTS = 1;
+    private SharedPreferences sharedPreferences;
 
     private static boolean isPermissionGranted(Context context, String permission) {
         if (ContextCompat.checkSelfPermission(context, permission)
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
 
+        this.sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this /* Activity context */);
+
         // Get the required permissions
         if (!allPermissionsGranted()) {
             getRuntimePermissions();
@@ -66,7 +71,12 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Starting authentication.",
                 Toast.LENGTH_SHORT).show();
 
+        String hostname = sharedPreferences.getString("key_host_name", "");
+        String port = sharedPreferences.getString("key_port_name", "8080");
+
         Intent intent = new Intent(getBaseContext(), AuthActivity.class);
+        intent.putExtra("BACKEND_HOST_NAME", hostname);
+        intent.putExtra("BACKEND_PORT", port);
         startActivity(intent);
     }
 

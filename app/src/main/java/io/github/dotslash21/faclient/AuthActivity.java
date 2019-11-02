@@ -92,13 +92,9 @@ public class AuthActivity extends AppCompatActivity
         }
 
         // Create backendConnectionManager instance with required info from MainActivity
-        //Intent intent = getIntent();
-        // String backendHostName = intent.getStringExtra("BACKEND_HOST_NAME");
-        // String backendPort = intent.getStringExtra("BACKEND_PORT");
-        //TEMPORARY TEST CODE START
-        String backendHostName = "192.168.225.68";
-        String backendPort = "8080";
-        //TEMPORARY TEST CODE END
+        Intent intent = getIntent();
+        String backendHostName = intent.getStringExtra("BACKEND_HOST_NAME");
+        String backendPort = intent.getStringExtra("BACKEND_PORT");
         backendConnectionManager = new BackendConnectionManager(backendHostName, backendPort);
 
         // Get Required Permissions

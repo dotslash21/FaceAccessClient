@@ -1,4 +1,5 @@
 package io.github.dotslash21.faclient;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
