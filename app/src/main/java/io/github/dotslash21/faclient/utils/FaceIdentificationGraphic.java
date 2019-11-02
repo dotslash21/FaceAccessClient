@@ -1,16 +1,29 @@
 // Copyright 2018 Google LLC
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Modifications copyright 2019 Arunangshu Biswas
+//
+// The following corresponding commit hashes arranged in chronological order
+// documents the modifications done by the modification copyright holder to
+// this file.
+//
+// Commits: bb8203e65edf67b4adcb5fafe58408b992740687
+//          f40f14d7d7bbdfa27fd68c2a57816ef24d41187d
+//          ffb60eccae0b288560bbcf582c3f436b20dbad20
+//          46864dbe985fd97469669b465839c64b05d0becb
+//          cc2b1958c69d666aff56d9f65b56743559bebc95
+//
+// This file contains original code under the Apache License Version 2.0 and
+// the modified code under the MIT Licence.
+// You may not use this file except in compliance with the License of both
+// original and modified code.
+// You may obtain a copy of the Apache Version 2.0 License at
 //
 //      http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// and the MIT Licence at
+//
+//      https://opensource.org/licenses/MIT
+
 package io.github.dotslash21.faclient.utils;
 
 import android.graphics.Canvas;
