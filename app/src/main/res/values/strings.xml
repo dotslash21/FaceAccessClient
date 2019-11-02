@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">FaceAccess Client</string>
+
+    <!--Settings file strings-->
+    <string name="action_settings">Settings</string>
+
+    <string name="host">127.0.0.1</string>
+    <string name="title_host">Host Name</string>
+    <string name="key_host_name">key_host_name</string>
+    <string name="host_summary">Input the Host name</string>
+
+    <string name="port">8080</string>
+    <string name="title_port">Port Number</string>
+    <string name="key_port_name">key_port_name</string>
+    <string name="port_summary">Input the Port Number</string>
+
+    <string name="frame">5</string>
+    <string name="title_frames">Number of Frames</string>
+    <string name="key_frame_name">key_frame_name</string>
+    <string name="frame_summary">Input the number of frames to sample</string>
 </resources>
