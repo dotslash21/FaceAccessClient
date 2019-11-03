@@ -54,11 +54,13 @@ public class FaceIdentificationProcessor extends VisionProcessorBase<List<Fireba
     private Context mContext;
     private BackendConnectionManager backendConnectionManager;
     private boolean frameCollectionDone = false;
+    private float detectionThreshold;
 
     private final FirebaseVisionFaceDetector detector;
 
-    public FaceIdentificationProcessor(Context context, BackendConnectionManager backendConnectionManager) {
+    public FaceIdentificationProcessor(Context context, BackendConnectionManager backendConnectionManager, float detectionThreshold) {
         this.mContext = context;
+        this.detectionThreshold = detectionThreshold;
 
         this.backendConnectionManager = backendConnectionManager;
 
@@ -130,7 +132,7 @@ public class FaceIdentificationProcessor extends VisionProcessorBase<List<Fireba
 
                 if (result == 1) {
                     frameCollectionDone = true;
-                    backendConnectionManager.authenticateFace(this.mContext);
+                    backendConnectionManager.authenticateFace(this.mContext, this.detectionThreshold);
                 }
             }
         }

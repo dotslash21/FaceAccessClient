@@ -18,4 +18,9 @@
     <string name="title_frames">Number of Frames</string>
     <string name="key_frame_name">key_frame_name</string>
     <string name="frame_summary">Input the number of frames to sample</string>
+
+    <string name="threshold">0.5</string>
+    <string name="title_threshold">Minimum probability threshold</string>
+    <string name="key_threshold_name">key_threshold_name</string>
+    <string name="threshold_summary">Input the threshold probability for face identification.</string>
 </resources>

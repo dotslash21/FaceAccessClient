@@ -50,6 +50,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_host_name)));
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_port_name)));
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_frame_name)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_threshold_name)));
         }
     }
 

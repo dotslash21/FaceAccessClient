@@ -18,6 +18,11 @@
             android:key="@string/key_frame_name"
             android:title="@string/title_frames"
             android:summary="@string/frame_summary" />
+        <EditTextPreference
+            android:defaultValue="@string/threshold"
+            android:key="@string/key_threshold_name"
+            android:title="@string/title_threshold"
+            android:summary="@string/threshold_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen>

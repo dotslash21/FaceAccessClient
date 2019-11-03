@@ -151,7 +151,7 @@ public class BackendConnectionManager {
         }
     }
 
-    public void authenticateFace(Context context) {
+    public void authenticateFace(Context context, float detectionThreshold) {
         queue = Volley.newRequestQueue(context);
 
         try {
@@ -172,7 +172,7 @@ public class BackendConnectionManager {
                             double probability = response.getDouble("probability");
 
 
-                            if (probability >= 0.80) {
+                            if (probability >= detectionThreshold) {
                                 Log.d(TAG, "AUTH STATUS PASS 1");
                                 Intent intent = new Intent(context, AuthStatusActivity.class);
                                 intent.putExtra("AUTH_STATUS", "PASS");

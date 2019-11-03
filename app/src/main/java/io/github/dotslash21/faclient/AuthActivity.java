@@ -56,6 +56,7 @@ public class AuthActivity extends AppCompatActivity
     private GraphicOverlay graphicOverlay;
 
     private BackendConnectionManager backendConnectionManager;
+    private float detectionThreshold;
 
     private static boolean isPermissionGranted(Context context, String permission) {
         if (ContextCompat.checkSelfPermission(context, permission)
@@ -96,6 +97,7 @@ public class AuthActivity extends AppCompatActivity
         String backendHostName = intent.getStringExtra("BACKEND_HOST_NAME");
         String backendPort = intent.getStringExtra("BACKEND_PORT");
         int numFrameSamples = intent.getIntExtra("NUM_FRAME_SAMPLES", 5);
+        this.detectionThreshold = intent.getFloatExtra("DETECTION_THRESHOLD", 0.5f);
         backendConnectionManager = new BackendConnectionManager(backendHostName, backendPort, numFrameSamples);
 
         // Get Required Permissions
@@ -129,7 +131,7 @@ public class AuthActivity extends AppCompatActivity
 
         try {
             Log.i(TAG, "Using Face Identification Processor");
-            cameraSource.setMachineLearningFrameProcessor(new FaceIdentificationProcessor(this, backendConnectionManager));
+            cameraSource.setMachineLearningFrameProcessor(new FaceIdentificationProcessor(this, backendConnectionManager, this.detectionThreshold));
         } catch (Exception e) {
             Log.e(TAG, "Can not create image processor: Face Identification", e);
             Toast.makeText(
