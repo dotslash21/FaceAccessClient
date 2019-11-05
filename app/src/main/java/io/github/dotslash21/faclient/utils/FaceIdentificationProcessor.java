@@ -116,6 +116,10 @@ public class FaceIdentificationProcessor extends VisionProcessorBase<List<Fireba
             graphicOverlay.add(faceGraphic);
 
             if (!frameCollectionDone) {
+                // Get image dimensions
+                int origImgHeight = originalCameraImage.getHeight();
+                int origImgWidth = originalCameraImage.getWidth();
+
                 // Cuts out the bounding box around the face.
                 int width = face.getBoundingBox().width();
                 int height = face.getBoundingBox().height();
@@ -124,15 +128,17 @@ public class FaceIdentificationProcessor extends VisionProcessorBase<List<Fireba
                 int x = centerX - (width / 2);
                 int y = centerY - (height / 2);
 
-                Log.d(TAG, "CUTOUT: "+x+" "+y+" "+width+" "+height);
+                if (x >= 0 && y >= 0 && x + width <= origImgWidth && y + height <= origImgHeight) {
+                    Log.d(TAG, "CUTOUT: "+x+" "+y+" "+width+" "+height);
 
-                Bitmap frame = Bitmap.createBitmap(originalCameraImage, x, y, width, height);
+                    Bitmap frame = Bitmap.createBitmap(originalCameraImage, x, y, width, height);
 
-                int result = backendConnectionManager.pushFrame(frame);
+                    int result = backendConnectionManager.pushFrame(frame);
 
-                if (result == 1) {
-                    frameCollectionDone = true;
-                    backendConnectionManager.authenticateFace(this.mContext, this.detectionThreshold);
+                    if (result == 1) {
+                        frameCollectionDone = true;
+                        backendConnectionManager.authenticateFace(this.mContext, this.detectionThreshold);
+                    }
                 }
             }
         }
